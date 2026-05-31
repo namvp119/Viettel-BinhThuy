@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viettel Cần Thơ - Bảng Giá Cáp Quang, Camera, TV360</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        viettel: '#FF0033',
+                        vtdark: '#0F172A',
+                        vtzalo: '#006AFE',
+                        vtphone: '#00CC44',
+                        darkred1: '#1F0005',
+                        darkred2: '#4A000E',
+                        darkred3: '#2B0008'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    animation: {
+                        'marquee': 'marquee 25s linear infinite',
+                        'blob': 'blob 7s infinite',
+                        'pulse-glow': 'pulseGlow 2s infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' }
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 1, transform: 'scale(1)' },
+                            '50%': { opacity: 0.8, transform: 'scale(1.05)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 text-vtdark font-sans antialiased overflow-x-hidden selection:bg-[#FF0033] selection:text-white cursor-none">
+
+    <!-- CUSTOM CURSOR VỚI HÀO QUANG ĐỎ -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="toast shadow-[0_10px_50px_rgba(255,0,51,0.4)] flex items-center gap-3 border-2 border-red-500 bg-white">
+        <div class="bg-gradient-to-br from-[#00CC44] to-[#009933] p-2 rounded-full text-white shadow-[0_0_15px_rgba(0,204,68,0.6)]">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <div>
+            <h4 class="font-black text-sm text-vtdark uppercase">Đăng ký thành công!</h4>
+            <p class="text-xs font-bold text-gray-500">Kỹ thuật viên sẽ gọi lại ngay.</p>
+        </div>
+        <div class="toast-progress bg-gradient-to-r from-[#FF0033] to-[#FF9900]"></div>
+    </div>
+
+    <!-- FLOATING CONTACT BUTTONS (PHÓNG TO + THÊM NÚT FACEBOOK) -->
+    <div class="fixed bottom-8 left-8 z-50 flex flex-col items-center hover-target">
+        <!-- Zalo -->
+        <a href="https://zalo.me/0868620883" target="_blank" class="btn-flash-zalo bg-[#006AFE] text-white w-[72px] h-[72px] rounded-full flex items-center justify-center transition-transform hover:scale-110 border-2 border-white/50 shadow-[0_0_20px_rgba(0,106,254,0.6)]">
+            <span class="font-black text-lg">Zalo</span>
+        </a>
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/wifiviettelcantho" target="_blank" class="btn-flash-fb bg-[#1877F2] text-white w-[72px] h-[72px] rounded-full flex items-center justify-center transition-transform hover:scale-110 mt-5 border-2 border-white/50 shadow-[0_0_20px_rgba(24,119,242,0.6)]">
+            <svg class="w-9 h-9 drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+        </a>
+        <!-- Phone -->
+        <a href="tel:0868620883" class="btn-flash-phone bg-[#00CC44] text-white w-[72px] h-[72px] rounded-full flex items-center justify-center transition-transform hover:scale-110 mt-5 border-2 border-white/50 shadow-[0_0_20px_rgba(0,204,68,0.6)]">
+            <svg class="w-9 h-9 drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        </a>
+    </div>
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 glass-header border-b border-white/10 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.3)] bg-[#0A0A0A]/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer hover-target" onclick="window.scrollTo(0,0)">
+                <div class="w-12 h-12 bg-gradient-to-br from-[#FF0033] via-[#FF3366] to-[#FF9900] rounded-xl flex items-center justify-center font-black text-white italic shadow-[0_0_25px_rgba(255,0,51,0.6)] border border-white/30 animate-pulse-glow">V</div>
+                <span class="text-3xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 drop-shadow-md">VIETTEL <span class="text-[#FF0033] text-glow-red-small">CT</span></span>
+            </div>
+            <nav class="hidden md:flex space-x-8 text-sm font-black uppercase tracking-widest text-white">
+                <a href="#pricing" class="hover:text-viettel transition-colors relative group hover-target">Gói Cước<span class="absolute -bottom-2 left-0 w-0 h-1.5 bg-gradient-to-r from-[#FF0033] to-[#FF9900] transition-all duration-300 group-hover:w-full rounded-full"></span></a>
+                <a href="#faq" class="hover:text-viettel transition-colors relative group hover-target">Hỗ Trợ<span class="absolute -bottom-2 left-0 w-0 h-1.5 bg-gradient-to-r from-[#FF0033] to-[#FF9900] transition-all duration-300 group-hover:w-full rounded-full"></span></a>
+                <a href="#register" class="hover:text-viettel transition-colors relative group hover-target">Lắp Đặt<span class="absolute -bottom-2 left-0 w-0 h-1.5 bg-gradient-to-r from-[#FF0033] to-[#FF9900] transition-all duration-300 group-hover:w-full rounded-full"></span></a>
+            </nav>
+            <a href="tel:0868620883" class="hover-target bg-white text-[#FF0033] px-8 py-3.5 rounded-full font-black text-sm shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,0,51,0.8)] hover:bg-[#FF0033] hover:text-white transition-all hover:-translate-y-1 duration-300 border border-transparent">Gọi Hotline Ngay</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- NỀN ĐỎ TỐI MẠNH MẼ KÈM HIỆU ỨNG TEXT GLOW -->
+        <section class="relative py-20 md:py-32 px-4 overflow-hidden bg-gradient-to-br from-darkred1 via-darkred2 to-darkred3">
+            <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-[#FF0033]/20 rounded-full blur-[120px] mix-blend-screen animate-blob"></div>
+            <div class="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-[#FF9900]/15 rounded-full blur-[100px] mix-blend-screen animate-blob" style="animation-delay: 2s;"></div>
+            
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiNmZmZmZmYiPjwvcmVjdD48cGF0aCBkPSJNMCAwbDRsNE00IDBMMCA0IiBzdHJva2U9IiNmM2Y0ZjYiIHN0cm9rZS13aWR0aD0iMC41Ii8+PC9zdmc+')] opacity-[0.07] z-0"></div>
+
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+                <div class="lg:col-span-6" data-aos="fade-right">
+                    <div class="inline-flex items-center space-x-2 bg-black/40 backdrop-blur-md text-white font-black px-6 py-3 rounded-full text-sm uppercase tracking-widest mb-6 border border-white/20 shadow-[0_0_20px_rgba(255,0,51,0.5)]">
+                        <span class="relative flex h-3 w-3 mr-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF0033] opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-[#FF0033]"></span>
+                        </span>
+                        Hạ tầng Số 1 Miền Tây
+                    </div>
+                    <!-- TEXT VỚI HIỆU ỨNG TỎA SÁNG -->
+                    <h1 class="text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase leading-[1.05] italic overflow-hidden reveal-text-container">
+                        <span class="block reveal-text text-white text-glow-white">Tốc Độ <span class="text-glow-gold text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#FF8C00]">Bứt Phá</span></span>
+                        <span class="block reveal-text mt-2 text-white text-glow-white" style="animation-delay: 0.1s">Trải Nghiệm</span>
+                        <span class="block reveal-text text-[#FF0033] text-glow-red" style="animation-delay: 0.2s">Đỉnh Cao</span>
+                    </h1>
+                    <p class="mt-8 text-gray-300 font-bold text-xl leading-relaxed max-w-xl" data-aos="fade-up" data-aos-delay="400">
+                        Nâng tầm không gian sống với Internet Wifi 6, Truyền hình 4K TV360, và giải pháp Camera AI bảo mật tuyệt đối.
+                    </p>
+                    <div class="mt-12 flex flex-wrap gap-5" data-aos="fade-up" data-aos-delay="600">
+                        <a href="#register" class="hover-target btn-neon px-12 py-5 rounded-2xl font-black uppercase text-base tracking-widest flex items-center gap-3 text-white border border-[#FF0033]/50">
+                            Đăng Ký Ngay
+                            <svg class="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                        <a href="#pricing" class="hover-target bg-white/5 backdrop-blur-sm text-white px-10 py-5 rounded-2xl font-black uppercase text-base tracking-widest border-2 border-white/20 hover:bg-white/20 hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 text-glow-white-small">Xem Bảng Giá</a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-6 relative h-[600px]" data-aos="fade-left" data-aos-delay="200">
+                    <div class="floating absolute top-10 right-0 w-4/5 aspect-[4/3] bg-white/10 backdrop-blur-xl rounded-[3rem] flex items-center justify-center border border-white/20 shadow-[0_0_50px_rgba(255,0,51,0.3)] z-20 overflow-hidden hover-target" data-tilt data-tilt-glare data-tilt-max-glare="0.6">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#FF0033]/20 to-transparent"></div>
+                        <div class="relative flex flex-col items-center justify-center text-center p-6">
+                            <span class="text-7xl mb-4 drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]">📸</span>
+                            <span class="text-white font-black text-base uppercase tracking-[0.2em] bg-black/40 border border-white/20 px-5 py-2.5 rounded-xl shadow-lg text-glow-white-small">[ẢNH GIA ĐÌNH]</span>
+                        </div>
+                    </div>
+                    <div class="floating-slow absolute bottom-10 left-0 w-1/2 aspect-square bg-white/10 backdrop-blur-xl rounded-[3rem] flex items-center justify-center border border-white/20 shadow-[0_0_40px_rgba(0,102,255,0.3)] z-30 overflow-hidden hover-target" data-tilt data-tilt-glare data-tilt-max-glare="0.6">
+                        <div class="absolute inset-0 bg-gradient-to-tl from-[#0066FF]/30 to-transparent"></div>
+                        <div class="relative flex flex-col items-center justify-center text-center p-4">
+                            <span class="text-6xl mb-3 drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]">🛜</span>
+                            <span class="text-white font-black text-sm uppercase tracking-[0.2em] bg-black/40 border border-white/20 px-4 py-2 rounded-lg shadow-lg text-glow-white-small">[WIFI 6]</span>
+                        </div>
+                    </div>
+                    <div class="floating-fast absolute -top-4 left-10 w-2/5 aspect-square bg-white/10 backdrop-blur-xl rounded-[3rem] flex items-center justify-center border border-white/20 shadow-[0_0_40px_rgba(255,153,0,0.3)] z-10 overflow-hidden hover-target" data-tilt data-tilt-glare data-tilt-max-glare="0.6">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#FF9900]/30 to-transparent"></div>
+                        <div class="relative flex flex-col items-center justify-center text-center p-4">
+                            <span class="text-6xl mb-3 drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]">📺</span>
+                            <span class="text-white font-black text-sm uppercase tracking-[0.2em] bg-black/40 border border-white/20 px-4 py-2 rounded-lg shadow-lg text-glow-white-small">[TV360]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INFINITE MARQUEE MÀU ĐEN TƯƠNG PHẢN -->
+        <div class="bg-vtdark text-white py-6 overflow-hidden flex whitespace-nowrap shadow-inner relative z-20 border-b-4 border-[#FF0033]">
+            <div class="animate-marquee flex space-x-12 items-center font-black text-base tracking-[0.25em] uppercase">
+                <span class="flex items-center gap-3"><span class="text-3xl drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">🚀</span> Modem Wifi 6 Miễn Phí</span><span class="text-[#FF0033] text-glow-red-small">|</span>
+                <span class="flex items-center gap-3"><span class="text-3xl drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">⚡</span> 100% Cáp Quang Cần Thơ</span><span class="text-[#FF0033] text-glow-red-small">|</span>
+                <span class="flex items-center gap-3"><span class="text-3xl drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">📺</span> 170 Kênh HD/4K TV360</span><span class="text-[#FF0033] text-glow-red-small">|</span>
+                <span class="flex items-center gap-3"><span class="text-3xl drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">🛡️</span> Camera AI Đỉnh Cao</span><span class="text-[#FF0033] text-glow-red-small">|</span>
+                <span class="flex items-center gap-3"><span class="text-3xl drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">🔥</span> Băng Thông 1Gbps</span><span class="text-[#FF0033] text-glow-red-small">|</span>
+                <!-- Lặp lại -->
+                <span class="flex items-center gap-3"><span class="text-3xl drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">🚀</span> Modem Wifi 6 Miễn Phí</span><span class="text-[#FF0033] text-glow-red-small">|</span>
+                <span class="flex items-center gap-3"><span class="text-3xl drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">⚡</span> 100% Cáp Quang Cần Thơ</span><span class="text-[#FF0033] text-glow-red-small">|</span>
+                <span class="flex items-center gap-3"><span class="text-3xl drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">📺</span> 170 Kênh HD/4K TV360</span><span class="text-[#FF0033] text-glow-red-small">|</span>
+                <span class="flex items-center gap-3"><span class="text-3xl drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">🛡️</span> Camera AI Đỉnh Cao</span>
+            </div>
+        </div>
+
+        <section class="py-16 bg-white border-b-2 border-gray-100 relative z-10 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x-2 divide-gray-100" id="stats-section">
+                    <div data-aos="zoom-in" data-aos-delay="100">
+                        <p class="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FF0033] to-[#FF9900] mb-3 filter drop-shadow-[0_2px_5px_rgba(255,0,51,0.4)]"><span class="counter" data-target="100">0</span>%</p>
+                        <p class="text-sm font-black text-vtdark uppercase tracking-[0.2em]">Cáp Quang</p>
+                    </div>
+                    <div data-aos="zoom-in" data-aos-delay="200">
+                        <p class="text-6xl font-black text-vtdark mb-3 drop-shadow-md"><span class="counter" data-target="24">0</span>h</p>
+                        <p class="text-sm font-black text-vtdark uppercase tracking-[0.2em]">Lắp đặt</p>
+                    </div>
+                    <div data-aos="zoom-in" data-aos-delay="300">
+                        <p class="text-6xl font-black text-vtdark mb-3 drop-shadow-md"><span class="counter" data-target="50">0</span>k+</p>
+                        <p class="text-sm font-black text-vtdark uppercase tracking-[0.2em]">Khách hàng</p>
+                    </div>
+                    <div data-aos="zoom-in" data-aos-delay="400">
+                        <p class="text-6xl font-black text-vtdark mb-3 drop-shadow-md"><span class="counter" data-target="170">0</span>+</p>
+                        <p class="text-sm font-black text-vtdark uppercase tracking-[0.2em]">Kênh TV360</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICING TABS -->
+        <section id="pricing" class="py-24 bg-gray-50 relative">
+            <div class="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_80%,transparent_100%)] opacity-60 z-0"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 relative z-10">
+                <div class="text-center mb-20" data-aos="fade-up">
+                    <h2 class="text-5xl md:text-6xl font-black uppercase tracking-tight text-vtdark drop-shadow-lg">Bảng Giá <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0033] to-[#FF9900] filter drop-shadow-[0_5px_15px_rgba(255,0,51,0.3)]">Cần Thơ</span></h2>
+                    <div class="w-32 h-2 bg-gradient-to-r from-[#FF0033] to-[#FF9900] mx-auto mt-8 rounded-full shadow-[0_0_20px_rgba(255,0,51,0.6)]"></div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-5 mb-16" data-aos="fade-up" data-aos-delay="100">
+                    <button onclick="openTab(event, 'tab-wifi')" class="hover-target tab-btn active px-10 py-5 rounded-[1.5rem] font-black text-base shadow-lg transition-all flex items-center gap-3 uppercase tracking-widest border-2 border-transparent"><span class="text-2xl drop-shadow-[0_0_5px_currentColor]">⚡</span> Wifi Đơn</button>
+                    <button onclick="openTab(event, 'tab-tv')" class="hover-target tab-btn px-10 py-5 rounded-[1.5rem] font-black text-base shadow-lg transition-all flex items-center gap-3 uppercase tracking-widest border-2 border-transparent"><span class="text-2xl drop-shadow-[0_0_5px_currentColor]">📺</span> + TV360</button>
+                    <button onclick="openTab(event, 'tab-camera')" class="hover-target tab-btn px-10 py-5 rounded-[1.5rem] font-black text-base shadow-lg transition-all flex items-center gap-3 uppercase tracking-widest border-2 border-transparent"><span class="text-2xl drop-shadow-[0_0_5px_currentColor]">🛡️</span> + Camera</button>
+                    <button onclick="openTab(event, 'tab-doanhnghiep')" class="hover-target tab-btn px-10 py-5 rounded-[1.5rem] font-black text-base shadow-lg transition-all flex items-center gap-3 uppercase tracking-widest border-2 border-transparent"><span class="text-2xl drop-shadow-[0_0_5px_currentColor]">🏢</span> Doanh Nghiệp</button>
+                </div>
+
+                <!-- TAB 1: WIFI ĐƠN LẺ -->
+                <div id="tab-wifi" class="tab-content active">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+                        <div data-aos="fade-right" class="lg:col-span-1 aspect-[4/5] bg-white rounded-[3rem] flex flex-col items-center justify-center p-8 text-center shadow-[0_30px_60px_rgba(0,0,0,0.12)] border-2 border-gray-100 relative overflow-hidden hover-target" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
+                            <div class="absolute inset-0 bg-gradient-to-br from-red-50 to-orange-50/50"></div>
+                            <span class="text-gray-400 font-black text-xl drop-shadow-md z-10 relative uppercase tracking-widest">📸 [ẢNH MESH WIFI]</span>
+                        </div>
+                        <div class="lg:col-span-2 space-y-8">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                                <div data-aos="fade-up" data-aos-delay="100" class="neon-card bg-white p-10 rounded-[2.5rem] shadow-xl border-2 border-gray-100 hover-target cursor-none group">
+                                    <p class="font-black text-vtdark text-3xl group-hover:text-[#FF0033] group-hover:text-glow-red-small transition-all">NETVT1 <span class="text-base font-bold text-gray-400 block mt-2 drop-shadow-none">(300Mbps)</span></p>
+                                    <p class="text-base font-bold text-gray-600 mt-6 mb-8 border-b-2 border-gray-100 pb-6 flex items-center gap-3"><svg class="w-6 h-6 text-[#00CC44]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg> 1 thiết bị Wifi 6</p>
+                                    <p class="text-5xl text-vtdark font-black group-hover:text-glow-white-small transition-all">195K<span class="text-lg font-bold text-gray-400 drop-shadow-none">/tháng</span></p>
+                                </div>
+                                <div data-aos="fade-up" data-aos-delay="200" class="neon-card bg-white p-10 rounded-[2.5rem] shadow-xl border-2 border-gray-100 hover-target cursor-none group">
+                                    <p class="font-black text-vtdark text-3xl group-hover:text-[#FF0033] group-hover:text-glow-red-small transition-all">NETVT2 <span class="text-base font-bold text-gray-400 block mt-2 drop-shadow-none">(Lên tới 1Gbps)</span></p>
+                                    <p class="text-base font-bold text-gray-600 mt-6 mb-8 border-b-2 border-gray-100 pb-6 flex items-center gap-3"><svg class="w-6 h-6 text-[#00CC44]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg> 1 thiết bị Wifi 6</p>
+                                    <p class="text-5xl text-vtdark font-black group-hover:text-glow-white-small transition-all">240K<span class="text-lg font-bold text-gray-400 drop-shadow-none">/tháng</span></p>
+                                </div>
+                                <div data-aos="fade-up" data-aos-delay="300" class="bg-gradient-to-br from-darkred2 via-[#FF0033] to-darkred2 p-10 rounded-[2.5rem] relative overflow-hidden shadow-[0_30px_60px_rgba(255,0,51,0.5)] hover-target group border-2 border-[#FF0033]" data-tilt data-tilt-max="8" data-tilt-scale="1.05" data-tilt-glare data-tilt-max-glare="0.6">
+                                    <div class="absolute -right-10 -top-10 w-48 h-48 bg-[#FF9900]/40 rounded-full blur-3xl animate-pulse-glow"></div>
+                                    <span class="absolute top-0 right-0 bg-white text-[#FF0033] text-xs font-black px-6 py-3 rounded-bl-3xl uppercase tracking-widest shadow-[0_0_15px_rgba(255,255,255,0.8)]">Bán Chạy Nhất</span>
+                                    <p class="font-black text-white text-3xl relative z-10 text-glow-white">MESHVT1 <span class="text-base font-bold text-red-200 block mt-2 drop-shadow-none">(300Mbps)</span></p>
+                                    <p class="text-base font-bold text-white mt-6 mb-8 border-b-2 border-white/30 pb-6 flex items-center gap-3 relative z-10"><svg class="w-6 h-6 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg> 2 thiết bị Wifi 6 (Mesh)</p>
+                                    <p class="text-5xl text-[#FFD700] font-black relative z-10 text-glow-gold">210K<span class="text-lg font-bold text-white drop-shadow-none">/tháng</span></p>
+                                </div>
+                                <div data-aos="fade-up" data-aos-delay="400" class="neon-card bg-white p-10 rounded-[2.5rem] shadow-xl border-2 border-gray-100 hover-target cursor-none group">
+                                    <p class="font-black text-vtdark text-3xl group-hover:text-[#FF0033] group-hover:text-glow-red-small transition-all">MESHVT2 <span class="text-base font-bold text-gray-400 block mt-2 drop-shadow-none">(Lên tới 1Gbps)</span></p>
+                                    <p class="text-base font-bold text-gray-600 mt-6 mb-8 border-b-2 border-gray-100 pb-6 flex items-center gap-3"><svg class="w-6 h-6 text-[#00CC44]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg> 3 thiết bị Wifi 6 (Mesh)</p>
+                                    <p class="text-5xl text-vtdark font-black group-hover:text-glow-white-small transition-all">245K<span class="text-lg font-bold text-gray-400 drop-shadow-none">/tháng</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: COMBO TV360 -->
+                <div id="tab-tv" class="tab-content">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                        <div class="lg:col-span-8 space-y-10">
+                            <h3 data-aos="fade-right" class="text-3xl font-black text-vtdark uppercase flex items-center gap-4">
+                                <span class="w-3 h-10 bg-[#FF0033] rounded-full shadow-[0_0_10px_rgba(255,0,51,0.5)]"></span> Combo Wifi + Truyền Hình
+                            </h3>
+                            <div class="space-y-8">
+                                <div data-aos="fade-up" data-aos-delay="100">
+                                    <p class="text-sm font-black text-white bg-vtdark px-6 py-3 rounded-xl inline-block mb-6 shadow-[0_0_15px_rgba(15,23,42,0.5)] uppercase tracking-widest text-glow-white-small">📺 App Basic (100 Kênh)</p>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                        <div class="neon-card bg-white p-8 rounded-[2rem] shadow-lg border border-gray-100 hover-target group"><p class="font-black text-xl group-hover:text-[#FF0033] group-hover:text-glow-red-small transition-all">APP BASIC NETVT1</p><p class="text-sm font-bold text-gray-500 mt-2">1 Wifi 6 + App 100 kênh</p><p class="text-3xl text-vtdark font-black mt-4 group-hover:text-glow-white-small transition-all">215.000đ</p></div>
+                                        <div class="neon-card bg-white p-8 rounded-[2rem] shadow-lg border border-gray-100 hover-target group"><p class="font-black text-xl group-hover:text-[#FF0033] group-hover:text-glow-red-small transition-all">APP BASIC MESHVT1</p><p class="text-sm font-bold text-gray-500 mt-2">2 Wifi 6 + App 100 kênh</p><p class="text-3xl text-vtdark font-black mt-4 group-hover:text-glow-white-small transition-all">230.000đ</p></div>
+                                    </div>
+                                </div>
+                                <div data-aos="fade-up" data-aos-delay="200">
+                                    <p class="text-sm font-black text-white bg-gradient-to-r from-[#FF0033] to-[#FF9900] px-6 py-3 rounded-xl inline-block mb-6 shadow-[0_0_20px_rgba(255,0,51,0.6)] uppercase tracking-widest text-glow-white-small">🌟 Box VIP (170 Kênh HD)</p>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                        <div class="bg-red-50/50 border-2 border-red-200 p-8 rounded-[2rem] shadow-[0_10px_20px_rgba(255,0,51,0.1)] hover-target group hover:border-[#FF0033] transition-all"><p class="font-black text-xl text-[#FF0033] group-hover:text-glow-red-small transition-all">BOX VIP NETVT1</p><p class="text-sm font-bold text-gray-600 mt-2">1 Wifi 6 + Box TV vật lý</p><p class="text-3xl text-vtdark font-black mt-4">280.000đ</p></div>
+                                        <div class="bg-red-50/50 border-2 border-red-200 p-8 rounded-[2rem] shadow-[0_10px_20px_rgba(255,0,51,0.1)] hover-target group hover:border-[#FF0033] transition-all"><p class="font-black text-xl text-[#FF0033] group-hover:text-glow-red-small transition-all">BOX VIP MESHVT2</p><p class="text-sm font-bold text-gray-600 mt-2">3 Wifi 6 + Box TV vật lý</p><p class="text-3xl text-vtdark font-black mt-4">295.000đ</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-4 space-y-8">
+                            <div data-aos="fade-left" data-aos-delay="300" class="aspect-video bg-white rounded-[2.5rem] flex flex-col items-center justify-center p-8 text-center shadow-xl border border-gray-100 relative overflow-hidden hover-target" data-tilt data-tilt-glare data-tilt-max-glare="0.3">
+                                <span class="text-gray-400 font-black text-lg uppercase tracking-widest">📸 [ẢNH GIA ĐÌNH]</span>
+                            </div>
+                            <div data-aos="fade-left" data-aos-delay="400" class="aspect-square bg-white rounded-[2.5rem] flex flex-col items-center justify-center p-8 text-center shadow-xl border border-gray-100 relative overflow-hidden hover-target" data-tilt data-tilt-glare data-tilt-max-glare="0.3">
+                                <span class="text-gray-400 font-black text-lg uppercase tracking-widest">📸 [ẢNH APP TV360]</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: COMBO CAMERA -->
+                <div id="tab-camera" class="tab-content">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                        <div data-aos="fade-right" data-aos-delay="100" class="lg:col-span-4 aspect-[4/5] bg-white rounded-[3rem] flex flex-col items-center justify-center p-8 text-center shadow-xl border-2 border-gray-100 relative overflow-hidden hover-target" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+                            <span class="text-gray-400 font-black text-xl uppercase tracking-widest">📸 [ẢNH CAMERA]</span>
+                        </div>
+                        <div class="lg:col-span-8 space-y-10">
+                            <h3 data-aos="fade-left" data-aos-delay="150" class="text-3xl font-black text-vtdark uppercase flex items-center gap-4">
+                                <span class="w-3 h-10 bg-[#FF0033] rounded-full shadow-[0_0_10px_rgba(255,0,51,0.5)]"></span> Internet + Camera AI
+                            </h3>
+                            <div data-aos="fade-up" data-aos-delay="200" class="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 p-8 rounded-[2rem] flex items-start gap-6 shadow-md hover-target">
+                                <span class="text-5xl drop-shadow-lg animate-bounce">🎁</span>
+                                <div>
+                                    <p class="font-black text-base text-blue-800 uppercase tracking-widest mb-2">Ưu đãi độc quyền Cần Thơ</p>
+                                    <p class="text-base font-bold text-blue-700 leading-relaxed">Tặng thêm 50Mbps băng thông cho mỗi Camera trang bị. Miễn phí lưu trữ Cloud 1 ngày (Camera trong nhà).</p>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" data-aos="fade-up" data-aos-delay="300">
+                                <div class="neon-card bg-white p-8 rounded-[2rem] shadow-lg border border-gray-100 hover-target group"><p class="font-black text-xl text-vtdark group-hover:text-[#FF0033] group-hover:text-glow-red-small transition-all">CAMERA NETVT1</p><p class="text-sm font-bold text-gray-500 mt-2">1 Wifi 6 + 1 Camera AI</p><p class="text-3xl text-vtdark font-black mt-4 group-hover:text-glow-white-small transition-all">215.000đ</p></div>
+                                <div class="neon-card bg-white p-8 rounded-[2rem] shadow-lg border border-gray-100 hover-target group"><p class="font-black text-xl text-vtdark group-hover:text-[#FF0033] group-hover:text-glow-red-small transition-all">CAMERA MESHVT1</p><p class="text-sm font-bold text-gray-500 mt-2">2 Wifi 6 + 1 Camera AI</p><p class="text-3xl text-vtdark font-black mt-4 group-hover:text-glow-white-small transition-all">230.000đ</p></div>
+                            </div>
+
+                            <h3 data-aos="fade-up" data-aos-delay="400" class="text-2xl font-black text-[#FF0033] text-glow-red-small uppercase mt-12 border-t-2 border-gray-200 pt-10 flex items-center gap-4">
+                                <span class="w-3 h-8 bg-red-400 rounded-full shadow-[0_0_10px_rgba(255,0,51,0.5)]"></span> 3 Dịch Vụ (Wifi + TV + Camera)
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6" data-aos="fade-up" data-aos-delay="500">
+                                <div class="bg-red-50/50 border-2 border-red-200 p-6 rounded-[2rem] shadow-md hover-target group hover:border-[#FF0033] transition-all"><p class="font-black text-base text-[#FF0033] group-hover:text-glow-red-small transition-all">3 IN 1 NETVT1</p><p class="text-2xl text-vtdark font-black mt-4">225.000đ</p></div>
+                                <div class="bg-red-50/50 border-2 border-red-200 p-6 rounded-[2rem] shadow-md hover-target group hover:border-[#FF0033] transition-all"><p class="font-black text-base text-[#FF0033] group-hover:text-glow-red-small transition-all">3 IN 1 MESHVT1</p><p class="text-2xl text-vtdark font-black mt-4">240.000đ</p></div>
+                                <div class="bg-red-50/50 border-2 border-red-200 p-6 rounded-[2rem] shadow-md hover-target group hover:border-[#FF0033] transition-all"><p class="font-black text-base text-[#FF0033] group-hover:text-glow-red-small transition-all">3 IN 1 MESHVT2</p><p class="text-2xl text-vtdark font-black mt-4">275.000đ</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: DOANH NGHIỆP -->
+                <div id="tab-doanhnghiep" class="tab-content">
+                    <div data-aos="zoom-in" data-aos-duration="1000" class="relative rounded-[3rem] overflow-hidden bg-gradient-to-br from-darkred1 via-vtdark to-[#050505] shadow-[0_30px_60px_rgba(0,0,0,0.6)] p-8 md:p-14 border border-gray-800">
+                        <div class="absolute inset-0 opacity-40 pointer-events-none mix-blend-screen">
+                            <div class="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#FF0033]/50 rounded-full blur-[120px] animate-pulse"></div>
+                            <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-[#FF9900]/30 rounded-full blur-[120px] animate-pulse" style="animation-delay: 2s;"></div>
+                        </div>
+                        
+                        <div class="relative z-10">
+                            <h3 class="text-4xl font-black uppercase mb-12 text-white flex items-center gap-4 tracking-tighter text-glow-white-small">
+                                <span class="bg-gradient-to-r from-[#FF0033] to-[#FF9900] text-white px-5 py-2 rounded-xl text-lg shadow-[0_0_20px_rgba(255,0,51,0.8)] border border-white/20">B2B</span> 
+                                Giải Pháp Doanh Nghiệp
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                <div class="bg-white/5 p-8 rounded-3xl backdrop-blur-2xl border-t border-l border-white/20 hover-target shadow-xl" data-tilt data-tilt-max="5" data-tilt-glare data-tilt-max-glare="0.2">
+                                    <p class="text-[#FF3366] font-black uppercase text-xs mb-6 tracking-widest border-b border-white/10 pb-4 text-glow-red-small">Băng Thông Cam Kết</p>
+                                    <div class="space-y-5 text-white">
+                                        <div class="flex justify-between items-end"><span class="font-bold text-base">PRO 1 <span class="block text-xs text-gray-400 font-semibold mt-1">QT>2M</span></span> <span class="font-black text-[#FF3366] text-2xl text-glow-red-small">350K</span></div>
+                                        <div class="flex justify-between items-end"><span class="font-bold text-base">PRO 2 <span class="block text-xs text-gray-400 font-semibold mt-1">QT>5M</span></span> <span class="font-black text-[#FF3366] text-2xl text-glow-red-small">500K</span></div>
+                                        <div class="flex justify-between items-end"><span class="font-bold text-base">MESHPRO 1 <span class="block text-xs text-gray-400 font-semibold mt-1">2 Wifi 6</span></span> <span class="font-black text-[#FF3366] text-2xl text-glow-red-small">400K</span></div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white/5 p-8 rounded-3xl backdrop-blur-2xl border-t border-l border-white/20 hover-target shadow-xl" data-tilt data-tilt-max="5" data-tilt-glare data-tilt-max-glare="0.2">
+                                    <p class="text-[#FF3366] font-black uppercase text-xs mb-6 tracking-widest border-b border-white/10 pb-4 text-glow-red-small">Đường Truyền IP Tĩnh</p>
+                                    <div class="space-y-5 text-white">
+                                        <div class="flex justify-between items-end"><span class="font-bold text-base">VIP200 <span class="block text-xs text-gray-400 font-semibold mt-1">200Mbps</span></span> <span class="font-black text-2xl text-glow-white-small">800K</span></div>
+                                        <div class="flex justify-between items-end"><span class="font-bold text-base">VIP500 <span class="block text-xs text-gray-400 font-semibold mt-1">500Mbps</span></span> <span class="font-black text-2xl text-glow-white-small">1.900K</span></div>
+                                        <div class="flex justify-between items-end"><span class="font-bold text-base">F300BASIC <span class="block text-xs text-gray-400 font-semibold mt-1">1 Block IP</span></span> <span class="font-black text-2xl text-glow-white-small">7.700K</span></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-gradient-to-br from-darkred2 via-[#FF0033] to-darkred3 p-8 rounded-3xl shadow-[0_20px_50px_rgba(255,0,51,0.6)] border border-[#FF0033] hover-target relative overflow-hidden" data-tilt data-tilt-max="8" data-tilt-scale="1.05" data-tilt-glare data-tilt-max-glare="0.4">
+                                    <p class="text-white font-black uppercase text-xs mb-6 tracking-widest border-b border-white/30 pb-4 relative z-10 text-glow-white">Enterprise Premium</p>
+                                    <div class="space-y-5 text-white relative z-10">
+                                        <div class="flex justify-between items-end"><span class="font-bold text-base drop-shadow-sm">F300PLUS</span> <span class="font-black text-2xl text-glow-white">9.900K</span></div>
+                                        <div class="flex justify-between items-end"><span class="font-bold text-base drop-shadow-sm">F500BASIC</span> <span class="font-black text-2xl text-glow-white">13.200K</span></div>
+                                        <div class="flex justify-between items-end mt-4 pt-4 border-t border-white/30"><span class="font-black text-lg text-[#FFD700] text-glow-gold">F1000PLUS</span> <span class="font-black text-3xl text-[#FFD700] text-glow-gold">25.000K</span></div>
+                                    </div>
+                                    <p class="text-[11px] mt-6 opacity-90 font-bold relative z-10 text-center bg-black/30 p-3 rounded-xl uppercase tracking-widest border border-white/10 shadow-[0_0_15px_rgba(0,0,0,0.5)] text-glow-white-small">Trang bị Router Cân Bằng Tải</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FAQ SECTION - CÂU HỎI THƯỜNG GẶP -->
+        <section id="faq" class="py-24 bg-white border-t-2 border-b-2 border-gray-100 relative z-10">
+            <div class="max-w-4xl mx-auto px-4">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tight text-vtdark drop-shadow-sm">CÂU HỎI <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0033] to-[#FF9900] filter drop-shadow-[0_2px_10px_rgba(255,0,51,0.3)]">THƯỜNG GẶP</span></h2>
+                </div>
+                <div class="space-y-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="faq-item border-2 border-gray-100 rounded-[1.5rem] overflow-hidden hover-target transition-all hover:border-red-300 shadow-sm hover:shadow-[0_10px_30px_rgba(255,0,51,0.1)] bg-white">
+                        <button class="faq-btn w-full px-8 py-6 text-left font-black text-vtdark flex justify-between items-center focus:outline-none text-lg">
+                            <span>Thủ tục lắp đặt mạng Viettel Cần Thơ gồm những gì?</span>
+                            <span class="faq-icon text-[#FF0033] text-4xl font-normal transition-transform duration-300 leading-none drop-shadow-[0_0_5px_rgba(255,0,51,0.5)]">+</span>
+                        </button>
+                        <div class="faq-content bg-gray-50 px-8 py-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                            <p class="text-base font-bold text-gray-600 py-6 border-t border-gray-200 leading-relaxed">Rất đơn giản, đối với cá nhân chỉ cần thẻ CCCD (Chụp 2 mặt). Đối với Doanh nghiệp cần thêm Giấy phép Kinh doanh và chữ ký của Giám đốc hoặc người được ủy quyền.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item border-2 border-gray-100 rounded-[1.5rem] overflow-hidden hover-target transition-all hover:border-red-300 shadow-sm hover:shadow-[0_10px_30px_rgba(255,0,51,0.1)] bg-white">
+                        <button class="faq-btn w-full px-8 py-6 text-left font-black text-vtdark flex justify-between items-center focus:outline-none text-lg">
+                            <span>Thời gian lắp đặt mất bao lâu?</span>
+                            <span class="faq-icon text-[#FF0033] text-4xl font-normal transition-transform duration-300 leading-none drop-shadow-[0_0_5px_rgba(255,0,51,0.5)]">+</span>
+                        </button>
+                        <div class="faq-content bg-gray-50 px-8 py-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                            <p class="text-base font-bold text-gray-600 py-6 border-t border-gray-200 leading-relaxed">Sau khi khảo sát và làm hợp đồng (có thể hỗ trợ làm Online nhanh chóng), kỹ thuật viên Viettel CT cam kết triển khai lắp đặt hoàn tất trong vòng tối đa 24 giờ cho khách hàng.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item border-2 border-gray-100 rounded-[1.5rem] overflow-hidden hover-target transition-all hover:border-red-300 shadow-sm hover:shadow-[0_10px_30px_rgba(255,0,51,0.1)] bg-white">
+                        <button class="faq-btn w-full px-8 py-6 text-left font-black text-vtdark flex justify-between items-center focus:outline-none text-lg">
+                            <span>Thiết bị Wifi 6 Mesh có ưu điểm gì so với Wifi thường?</span>
+                            <span class="faq-icon text-[#FF0033] text-4xl font-normal transition-transform duration-300 leading-none drop-shadow-[0_0_5px_rgba(255,0,51,0.5)]">+</span>
+                        </button>
+                        <div class="faq-content bg-gray-50 px-8 py-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                            <p class="text-base font-bold text-gray-600 py-6 border-t border-gray-200 leading-relaxed">Wifi 6 (Chuẩn AX) cho tốc độ truyền tải nhanh hơn gấp 3 lần, khả năng chịu tải lên đến 60 thiết bị cùng lúc và độ trễ cực thấp. Công nghệ Mesh giúp tự động ghép nối các cục Wifi lại thành một mạng lưới xuyên suốt toàn bộ căn nhà mà không bị giật lag khi bạn di chuyển.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORM ĐĂNG KÝ -->
+        <section id="register" class="py-24 relative overflow-hidden bg-gray-50/50">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+                <form data-aos="zoom-in" data-aos-duration="1000" id="contactForm" class="bg-white p-10 md:p-20 rounded-[4rem] shadow-[0_40px_100px_rgba(0,0,0,0.1)] border-2 border-gray-100 space-y-12 hover-target relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-[#FF0033] to-[#FF9900]"></div>
+                    <div class="text-center mb-16">
+                        <h2 class="text-5xl md:text-6xl font-black uppercase tracking-tighter text-vtdark drop-shadow-sm">Đăng Ký Tư Vấn Nhanh</h2>
+                        <p class="text-gray-500 mt-5 text-lg font-bold">Kỹ thuật viên Viettel Cần Thơ sẽ liên hệ khảo sát trong vòng 5 phút.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div class="relative z-0 w-full mb-2 group cursor-none">
+                            <input type="text" name="floating_name" id="floating_name" class="block py-4 px-0 w-full text-xl font-black text-vtdark bg-transparent border-0 border-b-4 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-[#FF0033] peer transition-colors cursor-none shadow-[0_10px_0_transparent] focus:shadow-[0_10px_20px_rgba(255,0,51,0.1)]" placeholder=" " required />
+                            <label for="floating_name" class="peer-focus:font-black absolute text-base font-bold text-gray-400 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#FF0033] peer-focus:drop-shadow-[0_0_5px_rgba(255,0,51,0.4)] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8 uppercase tracking-widest">Họ và Tên *</label>
+                        </div>
+                        <div class="relative z-0 w-full mb-2 group cursor-none">
+                            <input type="tel" name="floating_phone" id="floating_phone" class="block py-4 px-0 w-full text-xl font-black text-vtdark bg-transparent border-0 border-b-4 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-[#FF0033] peer transition-colors cursor-none shadow-[0_10px_0_transparent] focus:shadow-[0_10px_20px_rgba(255,0,51,0.1)]" placeholder=" " required />
+                            <label for="floating_phone" class="peer-focus:font-black absolute text-base font-bold text-gray-400 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#FF0033] peer-focus:drop-shadow-[0_0_5px_rgba(255,0,51,0.4)] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8 uppercase tracking-widest">Số Điện Thoại *</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" id="submitBtn" class="hover-target btn-neon w-full text-white font-black tracking-widest uppercase py-8 rounded-3xl shadow-[0_20px_50px_rgba(255,0,51,0.5)] hover:-translate-y-2 flex justify-center items-center gap-4 transition-all mt-10 text-xl border-2 border-white/50">
+                        <span id="btnText" class="text-glow-white">Gửi Yêu Cầu Cho Viettel CT</span>
+                        <svg id="loadingSpinner" class="animate-spin -ml-1 mr-3 h-8 w-8 text-white hidden drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- MAP SECTION -->
+        <section id="map" class="py-24 max-w-7xl mx-auto px-4 border-t-2 border-gray-100 bg-gray-50/50">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+                <div class="lg:col-span-1 space-y-8" data-aos="fade-right">
+                    <h2 class="text-5xl font-black uppercase italic text-vtdark leading-tight drop-shadow-sm">Ghé thăm <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0033] to-[#FF9900] filter drop-shadow-[0_2px_10px_rgba(255,0,51,0.3)]">Showroom</span></h2>
+                    <div class="space-y-6">
+                        <div class="hover-target neon-card flex items-center space-x-5 bg-white p-6 rounded-3xl border-2 border-gray-100 transition-all" data-tilt data-tilt-max="3">
+                            <div class="bg-red-50 p-4 rounded-2xl text-[#FF0033] shadow-[0_0_15px_rgba(255,0,51,0.2)] border border-red-100 text-2xl">📍</div>
+                            <p class="font-black text-base leading-relaxed text-vtdark tracking-wide group-hover:text-[#FF0033]">557B, Trần Quang Diệu, <br><span class="font-bold text-gray-500 text-sm drop-shadow-none">Bình Thủy, Cần Thơ</span></p>
+                        </div>
+                        <div class="hover-target neon-card flex items-center space-x-5 bg-white p-6 rounded-3xl border-2 border-gray-100 transition-all" data-tilt data-tilt-max="3">
+                            <div class="bg-blue-50 p-4 rounded-2xl text-[#006AFE] shadow-[0_0_15px_rgba(0,106,254,0.2)] border border-blue-100 text-2xl">💬</div>
+                            <p class="font-black text-base text-vtdark tracking-wide group-hover:text-[#006AFE]">Zalo: 0868620883 <br><span class="text-xs font-bold text-gray-500 uppercase drop-shadow-none">Phản hồi siêu tốc 24/7</span></p>
+                        </div>
+                        <div class="hover-target neon-card flex items-center space-x-5 bg-white p-6 rounded-3xl border-2 border-gray-100 transition-all" data-tilt data-tilt-max="3">
+                            <div class="bg-green-50 p-4 rounded-2xl text-[#00CC44] shadow-[0_0_15px_rgba(0,204,68,0.2)] border border-green-100 text-2xl">📞</div>
+                            <p class="font-black text-base text-vtdark tracking-wide group-hover:text-[#00CC44]">Hotline: 0868620883 <br><span class="text-xs font-bold text-gray-500 uppercase drop-shadow-none">Gọi để lắp đặt ngay</span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-2" data-aos="fade-left">
+                    <div class="map-container shadow-[0_30px_60px_rgba(0,0,0,0.2)] border-4 border-white rounded-[3rem] overflow-hidden relative hover-target" data-tilt data-tilt-max="2" data-tilt-glare data-tilt-max-glare="0.2">
+                        <iframe 
+                            src="https://maps.google.com/maps?q=557B%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u,%20B%C3%ACnh%20Th%E1%BB%A7y,%20C%E1%BA%A7n%20Th%C6%A1&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                            allowfullscreen="" 
+                            loading="lazy"
+                            class="grayscale-[10%] hover:grayscale-0 transition-all duration-700 w-full h-full"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gradient-to-b from-vtdark to-[#050505] text-white py-24 text-center relative overflow-hidden border-t-4 border-[#FF0033]">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiMxMTE4MjciPjwvcmVjdD48cGF0aCBkPSJNMCAwbDRsNE00IDBMMCA0IiBzdHJva2U9IiMzNzQxNTEiIHN0cm9rZS13aWR0aD0iMC41Ii8+PC9zdmc+')] opacity-30"></div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10 flex flex-col items-center">
+            <div class="w-24 h-24 bg-gradient-to-br from-darkred2 via-[#FF0033] to-darkred2 rounded-[2rem] mb-12 flex items-center justify-center font-black text-white italic text-5xl shadow-[0_0_50px_rgba(255,0,51,0.8)] hover-target border-2 border-white/20 animate-pulse-glow" data-tilt>V</div>
+            <p class="text-2xl font-black uppercase tracking-[0.4em] italic text-glow-white">Viettel Telecom Can Tho</p>
+            <p class="text-base font-bold tracking-[0.3em] mt-5 uppercase text-[#FF3366] text-glow-red-small">Chi Nhánh Bình Thủy</p>
+            <div class="w-24 h-1.5 bg-gradient-to-r from-transparent via-[#FF0033] to-transparent mx-auto my-12 rounded-full opacity-50"></div>
+            <p class="text-xs font-black opacity-60 uppercase tracking-[0.3em] hover:text-[#FF0033] transition-colors hover:opacity-100">Dự án Thực Tập Sinh Frontend 🇻🇳 © 2026</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

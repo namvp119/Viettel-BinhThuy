@@ -1,0 +1,122 @@
+/* style.css - DARK RED GLOW VERSION */
+html { scroll-behavior: smooth; cursor: none; }
+body { -webkit-font-smoothing: antialiased; }
+* { cursor: none !important; }
+
+/* 1. HIỆU ỨNG TEXT TỎA SÁNG (GLOWING TEXT) */
+.text-glow-white {
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.3);
+}
+.text-glow-white-small {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+.text-glow-gold {
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 140, 0, 0.5);
+}
+.text-glow-red {
+    text-shadow: 0 0 20px rgba(255, 0, 51, 0.9), 0 0 40px rgba(255, 0, 51, 0.6);
+}
+.text-glow-red-small {
+    text-shadow: 0 0 10px rgba(255, 0, 51, 0.7);
+}
+
+/* 2. CUSTOM CURSOR VỚI HÀO QUANG ĐỎ BÁM THEO CHUỘT (Đã đổi màu cam Neon khi hover) */
+.cursor-dot {
+    width: 10px; height: 10px; background-color: #FF0033;
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
+    border-radius: 50%; transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s;
+}
+.cursor-outline {
+    width: 60px; height: 60px; 
+    border: 2px solid rgba(255, 0, 51, 0.8);
+    background-color: rgba(255, 0, 51, 0.1);
+    box-shadow: 0 0 30px 10px rgba(255, 0, 51, 0.4); 
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998;
+    border-radius: 50%; transform: translate(-50%, -50%);
+    transition: width 0.15s, height 0.15s, border-color 0.15s, background-color 0.15s;
+}
+.cursor-dot.hover { 
+    width: 15px; height: 15px; 
+    background-color: #FF9900; 
+    box-shadow: 0 0 15px rgba(255,153,0,1); 
+}
+.cursor-outline.hover { 
+    width: 80px; height: 80px; 
+    border-color: #FF9900; 
+    background-color: rgba(255, 153, 0, 0.1);
+    box-shadow: 0 0 30px 10px rgba(255, 153, 0, 0.3); 
+}
+
+/* 3. NÚT ZALO, FB & PHONE CHỚP NHÁY (PULSE) */
+@keyframes pulse-zalo {
+    0% { box-shadow: 0 0 0 0 rgba(0, 106, 254, 0.8); }
+    70% { box-shadow: 0 0 0 35px rgba(0, 106, 254, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 106, 254, 0); }
+}
+@keyframes pulse-fb {
+    0% { box-shadow: 0 0 0 0 rgba(24, 119, 242, 0.8); }
+    70% { box-shadow: 0 0 0 35px rgba(24, 119, 242, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(24, 119, 242, 0); }
+}
+@keyframes pulse-phone {
+    0% { box-shadow: 0 0 0 0 rgba(0, 204, 68, 0.8); }
+    70% { box-shadow: 0 0 0 35px rgba(0, 204, 68, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 204, 68, 0); }
+}
+.btn-flash-zalo { animation: pulse-zalo 2.5s infinite; }
+.btn-flash-fb { animation: pulse-fb 2.5s infinite 0.5s; }
+.btn-flash-phone { animation: pulse-phone 2.5s infinite 1s; }
+
+/* Các hiệu ứng khác */
+.btn-neon {
+    background: linear-gradient(135deg, #FF0033 0%, #FF6600 100%);
+    box-shadow: 0 15px 35px -5px rgba(255, 0, 51, 0.6);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-neon:hover {
+    box-shadow: 0 25px 50px -5px rgba(255, 0, 51, 0.8);
+    background: linear-gradient(135deg, #E6002E 0%, #E65C00 100%);
+}
+
+.neon-card { transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+.neon-card:hover {
+    box-shadow: 0 25px 50px -10px rgba(255, 0, 51, 0.2);
+    border-color: rgba(255, 0, 51, 0.4);
+    transform: translateY(-5px);
+}
+
+.reveal-text-container { display: block; overflow: hidden; padding-bottom: 20px; }
+.reveal-text {
+    display: inline-block;
+    transform: translateY(120%);
+    animation: revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes revealUp { from { transform: translateY(120%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.toast {
+    position: fixed; bottom: -100px; right: 24px; padding: 20px 24px; border-radius: 20px; z-index: 10000;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); pointer-events: none; opacity: 0; overflow: hidden;
+}
+.toast.show { bottom: 24px; opacity: 1; }
+.toast-progress { position: absolute; bottom: 0; left: 0; height: 6px; width: 100%; }
+.toast.show .toast-progress { animation: shrinkProgress 3s linear forwards; }
+@keyframes shrinkProgress { from { width: 100%; } to { width: 0%; } }
+
+.tab-btn { background: white; border: 2px solid transparent; color: #4b5563; }
+.tab-btn.active {
+    background: linear-gradient(135deg, #FF0033 0%, #FF6600 100%);
+    color: white;
+    box-shadow: 0 15px 30px -5px rgba(255, 0, 51, 0.5);
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+input:focus ~ label, input:not(:placeholder-shown) ~ label, select:focus ~ label, select:not([value=""]):valid ~ label {
+    --tw-translate-y: -2.5rem; --tw-scale-x: .75; --tw-scale-y: .75;
+    color: #FF0033; font-weight: 900;
+}
+
+.map-container { position: relative; padding-bottom: 56.25%; height: 0; }
+.map-container iframe { position: absolute; top: 0; left: 0; }
