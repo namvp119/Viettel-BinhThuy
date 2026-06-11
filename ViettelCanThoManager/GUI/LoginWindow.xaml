@@ -1,0 +1,36 @@
+﻿<Window x:Class="GUI.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Đăng nhập hệ thống" Height="450" Width="400"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="Transparent" AllowsTransparency="True">
+
+    <Border Background="White" CornerRadius="15" BorderBrush="#E0E0E0" BorderThickness="1" Padding="20">
+        <Border.Effect>
+            <DropShadowEffect Color="Black" BlurRadius="15" Opacity="0.2" Direction="270" ShadowDepth="5"/>
+        </Border.Effect>
+        <StackPanel VerticalAlignment="Center">
+
+            <Border Background="#FF0033" Width="60" Height="60" CornerRadius="12" HorizontalAlignment="Center" Margin="0,0,0,15">
+                <TextBlock Text="V" Foreground="White" FontWeight="Black" FontSize="40" FontStyle="Italic" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <TextBlock Text="ĐĂNG NHẬP" FontWeight="Black" FontSize="24" Foreground="#FF0033" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+            <TextBlock Text="Hệ thống Quản lý Viettel Cần Thơ" Foreground="Gray" HorizontalAlignment="Center" Margin="0,0,0,30"/>
+
+            <TextBlock Text="Tên đăng nhập:" FontWeight="SemiBold" Foreground="#333" Margin="0,0,0,5"/>
+            <TextBox x:Name="txtUsername" Height="40" Padding="10,0" Margin="0,0,0,15" VerticalContentAlignment="Center" FontSize="14" Background="#F8F9FA"/>
+
+            <TextBlock Text="Mật khẩu:" FontWeight="SemiBold" Foreground="#333" Margin="0,0,0,5"/>
+            <PasswordBox x:Name="txtPassword" Height="40" Padding="10,0" Margin="0,0,0,25" VerticalContentAlignment="Center" FontSize="14" Background="#F8F9FA"/>
+
+            <Button x:Name="btnLogin" Content="ĐĂNG NHẬP" Height="45" Background="#FF0033" Foreground="White" FontWeight="Bold" FontSize="16" Cursor="Hand" Click="btnLogin_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="8"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button x:Name="btnExit" Content="Thoát phần mềm" Background="Transparent" Foreground="Gray" BorderThickness="0" Margin="0,15,0,0" Cursor="Hand" Click="btnExit_Click"/>
+        </StackPanel>
+    </Border>
+</Window>
